@@ -30,3 +30,9 @@ Example
 			$edge_id = $gexf->addEdge($node1, $node2, $frequency);
 		}
 	}
+	
+	// render the file
+	$gexf->render();
+
+	// write out the file
+	file_put_contents('file.gexf', $gexf->gexfFile);
