@@ -56,11 +56,11 @@ class Gexf {
     }
 
     public function setTitle($title) {
-        $this->title = Common::xmlEscape($title);
+        $this->title = str_replace("&", "&amp;", str_replace("'", "&quot;", str_replace('"', "'", strip_tags(trim($title)))));
     }
 
     public function setCreator($creator) {
-        $this->creator = Common::xmlEscape($creator);
+        $this->creator = str_replace("&", "&amp;", str_replace("'", "&quot;", str_replace('"', "'", strip_tags(trim($creator)))));
     }
 
     public function setMode($mode) {
@@ -297,7 +297,7 @@ class GexfNode {
     }
 
     public function setNodeName($name) {
-        $this->name = Common::xmlEscape($name);
+        $this->name = str_replace("&", "&amp;", str_replace("'", "&quot;", str_replace('"', "'", strip_tags(trim($name)))));
     }
 
     public function getNodeAttributes() {
@@ -460,7 +460,7 @@ class GexfAttribute {
     }
 
     public function setAttributeName($name) {
-        $this->name = Common::xmlEscape($name);
+        $this->name = str_replace("&", "&amp;", str_replace("'", "&quot;", str_replace('"', "'", strip_tags(trim($name)))));
     }
 
     public function getAttributeId() {
@@ -476,7 +476,7 @@ class GexfAttribute {
     }
 
     public function setAttributeValue($value) {
-        $this->value = Common::xmlEscape($value);
+        $this->value = str_replace("&", "&amp;", str_replace("'", "&quot;", str_replace('"', "'", strip_tags(trim($value)))));
     }
 
     public function getAttributeType($type) {
@@ -484,7 +484,7 @@ class GexfAttribute {
     }
 
     public function setAttributeType($type) {
-        $this->type = Common::xmlEscape($type);
+        $this->type = str_replace("&", "&amp;", str_replace("'", "&quot;", str_replace('"', "'", strip_tags(trim($type)))));
     }
     
     public function setAttributeStartdate($startdate) {
