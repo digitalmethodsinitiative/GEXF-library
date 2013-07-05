@@ -304,8 +304,8 @@ class GexfNode {
         return $this->attributes;
     }
 
-    public function addNodeAttribute($name, $value, $type = "string") {
-        $attribute = new GexfAttribute($name, $value, $type);
+    public function addNodeAttribute($name, $value, $type = "string",$startdate=null,$enddate=null) {
+        $attribute = new GexfAttribute($name, $value, $type,$startdate=null,$enddate=null);
         $this->attributes[$attribute->id] = $attribute;
     }
 
@@ -419,8 +419,8 @@ class GexfEdge {
         return $this->attributes;
     }
 
-    public function addEdgeAttribute($name, $value, $type = "string") {
-        $attribute = new GexfAttribute($name, $value, $type);
+    public function addEdgeAttribute($name, $value, $type = "string",$startdate=null,$enddate=null) {
+        $attribute = new GexfAttribute($name, $value, $type,$startdate=null,$enddate=null);
         $this->attributes[$attribute->id] = $attribute;
     }
 
