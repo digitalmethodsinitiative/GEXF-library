@@ -168,7 +168,13 @@ class Gexf {
             // add attributes
             if (count($node->attributes)) {
                 foreach ($node->attributes as $attribute) {
-                    $xmlNodes .= '<attvalue for="' . $attribute->id . '" value="' . $attribute->value . '"/>' . "\n";
+
+                    $xmlNodes .= '<attvalue for="' . $attribute->id . '" value="' . $attribute->value . '"';
+					if($attribute->startdate!==null)
+						$xmlNodes .= ' start="'.$attribute->startdate.'"';
+					if($attribute->enddate!==null)
+						$xmlNodes .= ' end="'.$attribute->enddate.'"';
+                    $xmlNodes .= '/>' . "\n";
 
                     if (array_key_exists($attribute->id, $this->nodeAttributeObjects) === false)
                         $this->nodeAttributeObjects[$attribute->id] = $attribute;
@@ -205,7 +211,12 @@ class Gexf {
             // add attributes
             if (count($edge->attributes)) {
                 foreach ($edge->attributes as $attribute) {
-                    $xmlEdges .= '<attvalue for="' . $attribute->id . '" value="' . $attribute->value . '"/>' . "\n";
+                    $xmlEdges .= '<attvalue for="' . $attribute->id . '" value="' . $attribute->value . '"';
+					if($attribute->startdate!==null)
+						$xmlEdges .= ' start="'.$attribute->startdate.'"';
+					if($attribute->enddate!==null)
+						$xmlEdges .= ' end="'.$attribute->enddate.'"';
+                    $xmlEdges .= '/>' . "\n";
 
                     if (array_key_exists($attribute->id, $this->edgeAttributeObjects) === false)
                         $this->edgeAttributeObjects[$attribute->id] = $attribute;
@@ -430,12 +441,18 @@ class GexfAttribute {
     public $name = "";
     public $value = "";
     public $type = "";
+    public $startdate = null;
+    public $enddate = null;
 
-    public function __construct($name, $value, $type = "string") {
+    public function __construct($name, $value, $type = "string",$startdate=null,$enddate=null) {
         $this->setAttributeName($name);
-        $this->setAttributeId($this->name);
+        $this->setAttributeId($this->name.$startdate.$enddate);
         $this->setAttributeValue($value);
         $this->setAttributeType($type);
+        if($startdate!==null)
+	        $this->setAttributeStartdate($startdate);
+        if($enddate!==null);
+        	$this->setAttributeEnddate($enddate);
     }
 
     public function getAttributeName() {
@@ -469,7 +486,24 @@ class GexfAttribute {
     public function setAttributeType($type) {
         $this->type = Common::xmlEscape($type);
     }
+    
+    public function setAttributeStartdate($startdate) {
+    	if (!preg_match("/\d{4}-\d{2}-\d{2}/", $startdate))
+            throw Exception("Attribute date not in right format");
+        $this->startdate = $startdate;
+	}
+	public function getAttributeStartdate($startdate) {
+		return $this->startdate;
+	}
 
+    public function setAttributeEnddate($enddate) {
+    	if (!preg_match("/\d{4}-\d{2}-\d{2}/", $enddate))
+            throw Exception("Attribute date not in right format");
+        $this->enddate = $enddate;
+	}
+	public function getAttributeEnddate($enddate) {
+		return $this->enddate;
+	}
 }
 
 // used for adding time to nodes and edges (attributes are currently unsupported)
