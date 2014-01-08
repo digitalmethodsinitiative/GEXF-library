@@ -200,7 +200,7 @@ class Gexf {
         $xmlEdges = "<edges>\n";
         foreach ($edgeObjects as $edge) {
 
-            $xmlEdges .= '<edge id="' . $edge->id . '" source="' . $edge->source . '" target="' . $edge->target . '" weight="' . $edge->weight . '">' . "\n";
+            $xmlEdges .= '<edge id="' . $edge->id . '" source="' . $edge->source . '" target="' . $edge->target . '" Weight="' . $edge->weight . '">' . "\n";
 
             // add attributes
             if (count($edge->attributes)) {
@@ -382,14 +382,10 @@ class GexfEdge {
     }
 
     public function setEdgeWeight($weight) {
-        if (!is_int($weight))
-            return array('error' => 'weight != int'); //@todo is this the right way to raise errors?
         $this->weight = $weight;
     }
 
     public function addToEdgeWeight($weight) {
-        if (!is_int($weight))
-            return array('error' => 'weight != int'); //@todo is this the right way to raise errors?
         $this->weight += $weight;
     }
 
